@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-car-front"></i> Mobil ({{ mobils|length }})</h1>
+  <p><a href="/mobil/add"><i class="bi bi-plus"></i> Tambah</a></p>
+</hgroup>
+<div class="grid">
+  <table role="grid">
+    <thead>
+      <tr>
+        <th>Nopol</th>
+        <th>Merk/Model</th>
+        <th>Pemilik</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for m in mobils %}
+      <tr>
+        <td>{{ m.nopol }}</td>
+        <td>{{ m.merk }} {{ m.model }}</td>
+        <td>{% if m.vendor %}{{ m.vendor.name }}{% else %}Sendiri{% endif %}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+<p></p>  
+</div>
+{% endblock %}

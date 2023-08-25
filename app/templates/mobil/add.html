@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-car-front"></i> Tambah Mobil</h1>
+  <p>Baik mobil sendiri maupun Vendor</p>
+</hgroup>
+<div class="grid">
+  <form action="/mobil/add" method="POST">
+    {{ form.csrf_token }}
+    {% if form.errors %}
+      <ul class="errors">
+      {% for error in form.errors %}
+          <li>{{ error }}</li>
+      {% endfor %}
+      </ul>
+    {% endif %}
+    <div class="grid">
+      <label for="nopol">
+        <strong>Nopol</strong>
+        {{ form.nopol }}
+        <small>AD-1234-KP, AD-1122-F</small>
+      </label>
+      <label for="merk">
+        <strong>Merk</strong>
+        {{ form.merk }}
+        <small>Toyota, Mitsubishi,...</small>
+      </label>
+      <label for="model">
+        <strong>Model</strong>
+        {{ form.model }}
+        <small>All New Inova</small>
+      </label>
+    </div>
+    <div class="grid">
+      <label for="Warna">
+        <strong>Warna</strong>
+        {{ form.warna }}
+        <small>Hitam, Putih</small>
+      </label>
+      <label for="stnk">
+        <strong>Akhir STNK</strong>
+        {{ form.akhir_stnk }}
+        <small>2023-09-30</small>
+      </label>
+      <label for="vin">
+        <strong>No Rangka</strong>
+        {{ form.vin }}
+        <small></small>
+      </label>
+    </div>
+    <div class="grid">
+      <label for="Warna">
+        <strong>Pemilik</strong>
+        {{ form.vendor }}
+        <small></small>
+      </label>
+      <p>&nbsp;</p>
+    </div>
+    <div class="grid">
+      <input type="submit" value="Simpan">
+      <p>&nbsp;</p>
+      <p>&nbsp;</p>
+    </div>
+  </form>
+  <p>Kanan</p>  
+</div>
+{% endblock %}

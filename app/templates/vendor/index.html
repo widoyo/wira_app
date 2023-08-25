@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-building"></i> Vendor</h1>
+  <p>Penyedia Kendaraan</p>
+</hgroup>
+<div class="grid">
+  <div>
+    <table role="grid">
+      <thead>
+        <tr>
+          <th>Nama</th>
+          <th>Alamat</th>
+          <th>PIC</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for v in vendors %}
+        <tr>
+          <td>{{ v.name }}</td>
+          <td>{{ v.address }}</td>
+          <td>{{ v.pic_name }} {% if v.pic_hp %}({{ v.pic_hp }}){% endif %}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div></div>
+</div>
+{% endblock %}

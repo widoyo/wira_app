@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-shuffle"></i> Jurnal</h1>
+  <p>Alias Buku Besar</p>
+</hgroup>
+<table role="grid">
+  <thead>
+    <tr>
+      <th>Tanggal</th>
+      <th>Kategori</th>
+      <th>Keterangan</th>
+      <th>Nilai</th>
+      <th>Dibuat oleh</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for j in jurnals %}
+    <tr>
+      <td>{{ j.tanggal }}</td>
+      <td>{{ j.kategori }}</td>
+      <td>{{ j,keterangan }}</td>
+      <td>{{ j.nilai }}</td>
+      <td>{{ j.c_by }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-emoji-sunglasses"></i> Tambah Supir / Driver</h1>
+  <p></p>
+</hgroup>
+<form action="/driver/add" method="POST">
+  {{ form.csrf_token }}
+  {% if form.errors %}
+    <ul class="errors">
+    {% for error in form.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  <div class="grid">
+    <div>
+      <div class="grid">
+        <label for="name">
+          <strong>Name</strong>
+          {{ form.name }}
+          <small>Nama orang</small>
+        </label>
+        <label for="phone">
+          <strong>Phone</strong>
+          {{ form.phone }}
+        </label>  
+      </div>
+    <label for="addr1">
+        Alamat
+        {{ form.addr1 }}
+      </label>
+      <label for="ktp">
+        KTP
+        {{ form.ktp }}
+      </label>
+  
+  </div>
+    <div>
+    </div>  
+  </div>
+
+  <div class="grid">
+    <input role="button" type="submit" value="Submit">
+    <p></p>
+    <p></p>
+    <p></p>
+  </div>
+
+</form>
+{% endblock %}

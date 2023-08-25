@@ -1,0 +1,61 @@
+/* Teal Light scheme (Default) */
+/* Can be forced with data-theme="light" */
+details>ul>li {
+  line-height: 2rem;
+}
+
+h1, h2 {
+  font-weight: 300;
+}
+h1 i.bi {
+  padding-right: 1rem;
+} 
+[data-theme="light"],
+:root:not([data-theme="dark"]) {
+  --primary: #00897b;
+  --primary-hover: #00796b;
+  --primary-focus: rgba(0, 137, 123, 0.125);
+  --primary-inverse: #FFF;
+}
+
+/* Teal Dark scheme (Auto) */
+/* Automatically enabled if user has Dark mode enabled */
+@media only screen and (prefers-color-scheme: dark) {
+  :root:not([data-theme]) {
+    --primary: #00897b;
+    --primary-hover: #009688;
+    --primary-focus: rgba(0, 137, 123, 0.25);
+    --primary-inverse: #FFF;
+  }
+}
+
+/* Teal Dark scheme (Forced) */
+/* Enabled if forced with data-theme="dark" */
+[data-theme="dark"] {
+  --primary: #00897b;
+  --primary-hover: #009688;
+  --primary-focus: rgba(0, 137, 123, 0.25);
+  --primary-inverse: #FFF;
+}
+
+/* Teal (Common styles) */
+:root {
+  --form-element-active-border-color: var(--primary);
+  --form-element-focus-color: var(--primary-focus);
+  --switch-color: var(--primary-inverse);
+  --switch-checked-background-color: var(--primary);
+  --form-element-spacing-vertical: 0.2rem;
+  --form-element-spacing-horizontal: 0.4rem;
+  --font-weight: 300;
+}
+
+@media (min-width: 992px) {
+  :root {
+    --font-size: 16px;
+  }
+}
+@media (min-width: 1200px) {
+  :root {
+    --font-size: 18px;
+  }
+}

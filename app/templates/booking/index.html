@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-phone-vibrate"></i> Pesanan</h1>
+  <p>Daftar Pesanan</p>
+</hgroup>
+<table role="grid">
+  <thead>
+    <tr>
+      <th>Pemesan</th>
+      <th>Kapan?</th>
+      <th>Kendaraan</th>
+      <th>Harga</th>
+      <th>Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for b in bookings %}
+    <tr>
+      <td>{{ b.name }} / {{ b.phone }}</td>
+      <td>{{ b.kapan }}</td>
+      <td>{{ b.kendaraan }}</td>
+      <td>{{ b.harga }}</td>
+      <td>{{ b.status }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

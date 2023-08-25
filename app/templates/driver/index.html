@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-emoji-sunglasses"></i> Supir / Driver</h1>
+  <p></p>
+</hgroup>
+<table role="grid">
+  <thead>
+    <tr>
+      <th>Nama</th>
+      <th>HP</th>
+      <th>KTP</th>
+      <th>Alamat</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for d in drivers %}
+    <tr>
+      <td><a href="/driver/{{ d.id }}">{{ d.name }}</a></td>
+      <td>{{ d.phone }}</td>
+      <td>{{ d.ktp }}</td>
+      <td>{{ d.addr1 }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

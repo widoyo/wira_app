@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-clock"></i> Sewa</h1>
+  <p>Transaksi Sewa Mobil</p>
+</hgroup>
+<table>
+  <thead>
+    <tr>
+      <th>Pickup</th>
+      <th>Estimasi Kembali</th>
+      <th>Mobil</th>
+      <th>Driver</th>
+      <th>Pemesan</th>
+      <th>Tujuan</th>
+      <th>&nbsp;</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for s in sewas %}
+    <tr>
+      <td>{{ s.berangkat }}</td>
+      <td>{{ s.est_tiba }}</td>
+      <td>{{ s.mobil.nopol }} {{ s.mobil.merk }} {{ s.mobil.model }}</td>
+      <td>{{ s.driver.name }} {{ s.driver.phone }}</td>
+      <td>{{ s.pemesan.name }}</td>
+      <td>{{ s.keterangan }}</td>
+      <td></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

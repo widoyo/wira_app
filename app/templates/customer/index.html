@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-bag-heart"></i> Customer</h1>
+  <a href="/customer/add">Penyewa</a>
+</hgroup>
+<table class="">
+  <thead>
+    <tr>
+      <th>Nama</th>
+      <th>WhatsApp</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in customers %}
+    <tr>
+      <td>{{ c.name }}</td>
+      <td>{{ c.phone }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

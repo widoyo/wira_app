@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-building"></i> New Vendor</h1>
+  <small>Penyedia Kendaraan</small>  
+</hgroup>
+<form action="/vendor/add" method="POST">
+  {{ form.csrf_token }}
+  {% if form.errors %}
+    <ul class="errors">
+    {% for error in form.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  <div class="grid">
+    <div>
+      <label for="name">
+        <strong>Name</strong>
+        {{ form.name }}
+        <small>Nama perusahaan, Title Case (huruf besar-kecil), baru PT, CV, dst</small>
+      </label>
+      <label for="address">
+        Address
+        <input type="text" id="address" name="address" placeholder="Jl. ..." required>
+      </label>
+  
+      <div class="grid">
+        <label for="pic_name">
+          <strong>PIC</strong> Name
+          <input type="text" id="pic_name" name="pic_name" placeholder="Sunarso" required>
+          <small>Contact Person</small>
+        </label>
+        <label for="pic_hp">
+          <strong>PIC</strong> HP
+          <input type="text" id="pic_hp" name="pic_hp" placeholder="081..." required>
+        </label>
+          </div>
+  </div>
+    <div>
+    </div>  
+  </div>
+
+  <div class="grid">
+    <input role="button" type="submit" value="Submit">
+    <p></p>
+    <p></p>
+    <p></p>
+  </div>
+ 
+</form>
+{% endblock %}

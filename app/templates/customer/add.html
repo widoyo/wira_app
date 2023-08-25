@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-bag-heart"></i> New Customer</h1>
+  <small>Pengguna jasa Wiratama</small>  
+</hgroup>
+
+<form x-data="{name:'', placeholder:''}" action="/customer/add" method="POST">
+  {{ form.csrf_token }}
+  {% if form.errors %}
+    <ul class="errors">
+    {% for error in form.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  <div class="grid">
+    <div>
+      <div class="grid">
+        <label for="name">
+          <strong>Name</strong>
+          {{ form.name(placeholder='Paijo') }}
+          <small>Nama orang</small>
+        </label>
+        <label for="phone">
+          <strong>Phone</strong>
+          <input type="text" id="phone" name="phone" placeholder="081..." required>
+        </label>
+      </div>
+    <label for="addr1">
+        Addr1
+        <input type="text" id="addr1" name="addr1" placeholder="Jl. ...">
+      </label>
+  
+      <label for="addr2">
+        Addr2
+        <input type="text" id="addr2" name="addr2" placeholder="...">
+      </label>
+      <label for="city">
+      City
+      <input type="text" id="city" name="city" placeholder="..." required>
+      </label>
+  </div>
+    <div>
+    </div>  
+  </div>
+
+  <div class="grid">
+    <input role="button" type="submit" value="Submit">
+    <p></p>
+    <p></p>
+    <p></p>
+  </div>
+ 
+</form>
+{% endblock %}
