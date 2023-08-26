@@ -26,7 +26,7 @@ class MobilForm(fw.FlaskForm):
 @bp.route('/add', methods=['POST', 'GET'])
 def add():
     form = MobilForm()
-    form.vendor.choices = [(None, 'Sendiri')] + [(v.id, v.name) for v in Vendor.select()]
+    form.vendor.choices = [(v.id, v.name) for v in Vendor.select()]
     #form.vendor.choices.append([(v.id, v.name) for v in Vendor.select()])
     if form.validate_on_submit():
         new_cust = Mobil(**form.data)

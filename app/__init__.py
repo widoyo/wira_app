@@ -10,7 +10,7 @@ from app.models import db_wrapper, User
 
 login_manager = LoginManager()
 
-SECRET_KEY = 'hello'
+SECRET_KEY = 'kslaiedljdso'
 DATABASE = {
     'name': 'wiratama_rental.db',
     'engine': 'peewee.SqliteDatabase'

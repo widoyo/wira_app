@@ -10,6 +10,17 @@ h1, h2 {
 h1 i.bi {
   padding-right: 1rem;
 } 
+
+.btn {
+  border: solid 1px var(--primary);
+  padding:6px 12px;
+  border-radius:20px;
+}
+.btn:hover {
+  color: white;
+  background-color: var(--primary-hover);
+  text-decoration: none;
+}
 [data-theme="light"],
 :root:not([data-theme="dark"]) {
   --primary: #00897b;

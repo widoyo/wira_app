@@ -2,8 +2,12 @@
 {% block content %}
 <hgroup>
   <h1><i class="bi bi-car-front"></i> Mobil ({{ mobils|length }})</h1>
-  <p><a href="/mobil/add"><i class="bi bi-plus"></i> Tambah</a></p>
+  <p></p>
 </hgroup>
+<div class="grid" style="border-bottom: solid 1px #eee;margin-bottom: 10px;">
+  <span><a href="/mobil/add" class="btn"><i class="bi bi-plus"></i> Tambah</a></span>
+  <span class="grid"><p></p><input type="text" name="q" style="margin-bottom: 4px;"></span>
+</div>
 <div class="grid">
   <table role="grid">
     <thead>

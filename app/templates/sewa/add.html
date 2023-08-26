@@ -4,4 +4,67 @@
   <h1><i class="bi bi-clock"></i> Tambah Sewa</h1>
   <p></p>
 </hgroup>
+<form action="/sewa/add">
+  {{ form.csrf_token }}
+  {% if form.errors %}
+    <ul class="errors">
+    {% for error in form.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  <div class="grid">
+    <div>
+      <div class="grid">
+        <label for="name">
+          <strong>Name</strong>
+          {{ form.name }}
+          <small>Nama pemesan/pengguna</small>
+        </label>
+        <label for="phone">
+          <strong>HP</strong>
+          {{ form.phone }}
+        </label>
+  
+      </div>
+      <div class="grid">
+        <label for="kendaraan">
+          Kendaraan
+          {{ form.kendaraan }}
+        </label>
+        <label for="harga">
+          Harga Total
+          {{ form.harga }}
+          <small>Harga setelah nego</small>
+          </label>
+          <label for="kapan">
+        Waktu Jemput
+        {% if form.kapan.errors %}
+        <ul class="errors">
+        {% for error in form.kapan.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+        {% endif %}
+    {{ form.kapan }}
+        <small>Tanggal dan Jam</small>
+        </label>
+        </div>
+      <label for="jemput">
+        Alamat Jemput
+        {{ form.jemput }}
+      </label>
+      <label for="jemput">
+        Tujuan
+        {{ form.acara }}
+        <small>Nama tempat atau lokasi tujuan</small>
+      </label>
+      <div class="grid">
+        <input role="button" type="submit" value="Simpan">
+        <p></p>
+        <p></p>
+      </div>
+</div>
+</div>
+</form>
 {% endblock %}
