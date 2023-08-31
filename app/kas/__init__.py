@@ -6,16 +6,27 @@ from playhouse.flask_utils import get_object_or_404
 import flask_wtf as fw
 import wtforms as wt
 from wtforms.validators import DataRequired
-from app.models import Kas
+from app.models import Kas, KAS_BANK, KAT_BIAYA
 
 
 bp = Blueprint('kas', __name__, url_prefix='/kas')
 
 
-class KasForm(fw.FlaskForm):
+class KasOutForm(fw.FlaskForm):
     tanggal = wt.DateField('Tanggal')
-    name = wt.StringField('Name')
-    phone = wt.StringField('WhatsApp')
+    sumber = wt.SelectField(choices=KAS_BANK)
+    tujuan = wt.SelectField(choices=KAT_BIAYA)
+    nilai = wt.StringField('Nilai')
+    keterangan = wt.StringField('Keterangan')
+    
+
+class KasInForm(fw.FlaskForm):
+    tanggal = wt.DateField('Tanggal')
+    sumber = wt.SelectField(choices='Sewa;Bunga Bank;Retur;Koreksi Saldo;')
+    tujuan = wt.SelectField(choices=KAS_BANK)
+    nilai = wt.StringField('Nilai')
+    sewa = wt.SelectField('Sewa')
+    keterangan = wt.StringField('Keterangan')
 
 @bp.route('/add', methods=['POST', 'GET'])
 def add():

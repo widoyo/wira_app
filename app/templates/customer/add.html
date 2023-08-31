@@ -19,11 +19,11 @@
       <div class="grid">
         <label for="name">
           <strong>Name</strong>
-          {{ form.name(placeholder='Paijo') }}
+          {{ form.name(placeholder='Paijo', required=True) }}
           <small>Nama orang</small>
         </label>
         <label for="phone">
-          <strong>Phone</strong>
+          <strong>HP (WA)</strong>
           <input type="text" id="phone" name="phone" placeholder="081..." required>
         </label>
       </div>
@@ -38,7 +38,7 @@
       </label>
       <label for="city">
       City
-      <input type="text" id="city" name="city" placeholder="..." required>
+      <input type="text" id="city" name="city" placeholder="...">
       </label>
   </div>
     <div>

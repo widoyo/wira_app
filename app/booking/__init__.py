@@ -7,25 +7,29 @@ from playhouse.flask_utils import get_object_or_404
 import flask_wtf as fw
 import wtforms as wt
 from wtforms.validators import DataRequired
-from app.models import Booking
+from app.models import Booking, Customer
 
 
 bp = Blueprint('booking', __name__, url_prefix='/booking')
 
 
 class BookingForm(fw.FlaskForm):
-    name = wt.StringField('Name')
-    phone = wt.StringField('WhatsApp')
-    kapan = wt.DateTimeField(format="%Y-%m-%d %H:%M")
-    kendaraan = wt.SelectField('Merk & Model Kendaraan dipesan', choices='All New Avanza;Inova Reborn;Inova Venturer;HiAce Commuter;HiAce Premio;Pajero Sport;Alphard'.split(';'))
-    harga = wt.IntegerField('Harga')
+    pemesan = wt.SelectField('Pemesan', validators=[DataRequired()])
+    kapan = wt.DateTimeField(format="%Y-%m-%d %H:%M", 
+                             validators=[DataRequired()])
+    kota = wt.StringField('Kota Tujuan', validators=[DataRequired()])
+    num_hari = wt.IntegerField('Berapa hari', default=1, validators=[DataRequired()])
+    kendaraan = wt.SelectField('Merk & Model Kendaraan dipesan', 
+                               validators=[DataRequired()],
+                               choices='All New Avanza;Inova Reborn;Inova Venturer;HiAce Commuter;HiAce Premio;Pajero Sport;Alphard'.split(';'))
+    harga = wt.IntegerField('Harga', validators=[DataRequired()])
     jemput = wt.StringField('Titik jemput')
     status = wt.StringField('Status', default='aktif') # 'batal
-    acara = wt.StringField('Tujuan')
 
 @bp.route('/add', methods=['POST', 'GET'])
 def add():
-    form = BookingForm(kapan=datetime.datetime.now())
+    form = BookingForm(kapan=datetime.datetime.now() + datetime.timedelta(days=2))
+    form.pemesan.choices = [(c.id, c.name) for c in Customer.select()]
     if form.validate_on_submit():
         new_book = Booking(**form.data)
         new_book.c_by = current_user.username

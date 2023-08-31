@@ -32,6 +32,14 @@
       </label>
     </div>
     <div class="grid">
+      <label for="vendor">
+        <strong>Pemilik</strong>
+        {{ form.vendor }}
+        <small>Pemilik kendaraan</small>
+      </label>
+      <p>&nbsp;</p>
+    </div>
+    <div class="grid">
       <label for="warna">
         <strong>Warna</strong>
         {{ form.warna }}
@@ -49,19 +57,12 @@
       </label>
     </div>
     <div class="grid">
-      <label for="vendor">
-        <strong>Pemilik</strong>
-        {{ form.vendor }}
-        <small>Pemilik kendaraan</small>
-      </label>
-      <p>&nbsp;</p>
-    </div>
-    <div class="grid">
       <input type="submit" value="Simpan">
+      <span><a href="/mobil" class="btn">batal</a></span>
       <p>&nbsp;</p>
       <p>&nbsp;</p>
     </div>
   </form>
-  <p>Kanan</p>  
+  <p></p>  
 </div>
 {% endblock %}

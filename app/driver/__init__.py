@@ -15,8 +15,8 @@ bp = Blueprint('driver', __name__, url_prefix='/driver')
 
 
 class DriverForm(fw.FlaskForm):
-    name = wt.StringField('Name')
-    phone = wt.StringField('WhatsApp')
+    name = wt.StringField('Name', validators=[DataRequired()])
+    phone = wt.StringField('WhatsApp', validators=[DataRequired()])
     addr1 = wt.StringField('Alamat')
     addr1 = wt.StringField('Kota')
     ktp = wt.FileField()

@@ -12,6 +12,17 @@ db_wrapper = FlaskDB()
 class BaseModel(db_wrapper.Model):
     pass
         
+KAS_BANK = 'Kas A;Kas B;Bank BCA;Bank OCBC'.split(';')
+KAT_BIAYA = [
+    'Iklan',
+    'Gaji',
+    'Bahan Bakar',
+    'Listrik',
+    'Komunikasi'
+    'Supir',
+    'Tol',
+    'Vendor'
+]
 
 class User(UserMixin, BaseModel):
     '''User Authentication'''
@@ -91,6 +102,7 @@ class Booking(BaseModel):
     lokasi_jemput = pw.TextField(default='')
     kendaraan = pw.TextField('Reborn')
     harga = pw.IntegerField() # harga jadi / setelah nego
+    kota = pw.CharField(max_length=50, default='Solo')
     acara = pw.TextField(null=True)
     status = pw.CharField(max_length=12, default='aktif')
     created = pw.DateTimeField(default=datetime.datetime.now)
@@ -125,20 +137,23 @@ class Mobil(BaseModel):
     m_by = pw.CharField(max_length=12, null=True)
     
 class Sewa(BaseModel):
-    booking = pw.ForeignKeyField(Booking, null=True)
-    pemesan = pw.ForeignKeyField(Customer, null=True)
-    berangkat = pw.DateTimeField()
+    pemesan = pw.ForeignKeyField(Customer)
+    jemput = pw.DateTimeField()
+    lokasi_jemput = pw.CharField(max_length=100)
     est_tiba = pw.DateTimeField()
+    booking = pw.ForeignKeyField(Booking, null=True)
+    mobil = pw.ForeignKeyField(Mobil, null=True)
+    supir = pw.ForeignKeyField(Driver, null=True)
+    harga = pw.IntegerField(null=True)
+    tujuan = pw.TextField(null=True)
     km_berangkat = pw.IntegerField(null=True)
     km_tiba = pw.IntegerField(null=True)
     bea_supir = pw.IntegerField(null=True)
     bea_tol = pw.IntegerField(null=True)
     bea_bensin = pw.IntegerField(null=True)
     bea_lain = pw.IntegerField(null=True)
-    harga = pw.IntegerField(null=True)
     keterangan = pw.TextField(null=True)
-    mobil = pw.ForeignKeyField(Mobil, null=True)
-    supir = pw.ForeignKeyField(Driver, null=True)
+    upgrade = pw.BooleanField(default=False)
     created = pw.DateTimeField(default=datetime.datetime.now)
     modified = pw.DateTimeField(null=True)
     c_by = pw.CharField(max_length=12)

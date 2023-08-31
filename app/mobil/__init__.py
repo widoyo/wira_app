@@ -15,13 +15,13 @@ bp = Blueprint('mobil', __name__, url_prefix='/mobil')
 
 
 class MobilForm(fw.FlaskForm):
-    nopol = wt.StringField('Nopol')
-    merk = wt.StringField('Merk')
-    model = wt.StringField('Model')
+    nopol = wt.StringField('Nopol', validators=[DataRequired()])
+    merk = wt.StringField('Merk', validators=[DataRequired()])
+    model = wt.StringField('Model', validators=[DataRequired()])
     vin = wt.StringField('No Rangka')
     warna = wt.StringField('Warna')
     akhir_stnk = wt.DateField('Akhir STNK')
-    vendor = wt.SelectField('Pemilik')
+    vendor = wt.SelectField('Pemilik', validators=[DataRequired()])
 
 @bp.route('/add', methods=['POST', 'GET'])
 def add():

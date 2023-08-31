@@ -17,14 +17,9 @@
     <div>
       <label for="name">
         <strong>Name</strong>
-        {{ form.name }}
+        {{ form.name(required=True) }}
         <small>Nama perusahaan, Title Case (huruf besar-kecil), baru PT, CV, dst</small>
       </label>
-      <label for="address">
-        Address
-        <input type="text" id="address" name="address" placeholder="Jl. ..." required>
-      </label>
-  
       <div class="grid">
         <label for="pic_name">
           <strong>PIC</strong> Name
@@ -36,6 +31,11 @@
           <input type="text" id="pic_hp" name="pic_hp" placeholder="081..." required>
         </label>
           </div>
+      <label for="address">
+        Address
+        <input type="text" id="address" name="address" placeholder="Jl. ...">
+      </label>
+  
   </div>
     <div>
     </div>  

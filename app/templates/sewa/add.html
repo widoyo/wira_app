@@ -17,42 +17,42 @@
     <div>
       <div class="grid">
         <label for="name">
-          <strong>Name</strong>
-          {{ form.name }}
+          <strong>Pemesan</strong>
+          {{ form.pemesan }}
           <small>Nama pemesan/pengguna</small>
         </label>
-        <label for="phone">
-          <strong>HP</strong>
-          {{ form.phone }}
+        <label for="booking">
+          <strong>Booking</strong>
+          {{ form.booking }}
         </label>
   
       </div>
       <div class="grid">
-        <label for="kendaraan">
+        <label for="lokasi_jemput">
           Kendaraan
-          {{ form.kendaraan }}
+          {{ form.mobil }}
         </label>
         <label for="harga">
-          Harga Total
+          Harga
           {{ form.harga }}
-          <small>Harga setelah nego</small>
+          <small>Harga sewa</small>
           </label>
-          <label for="kapan">
+          <label for="jemput">
         Waktu Jemput
-        {% if form.kapan.errors %}
+        {% if form.jemput.errors %}
         <ul class="errors">
-        {% for error in form.kapan.errors %}
+        {% for error in form.jemput.errors %}
             <li>{{ error }}</li>
         {% endfor %}
         </ul>
         {% endif %}
-    {{ form.kapan }}
+    {{ form.jemput }}
         <small>Tanggal dan Jam</small>
         </label>
         </div>
       <label for="jemput">
         Alamat Jemput
-        {{ form.jemput }}
+        {{ form.tujuan }}
       </label>
       <label for="jemput">
         Tujuan
@@ -61,6 +61,7 @@
       </label>
       <div class="grid">
         <input role="button" type="submit" value="Simpan">
+        <span><a href="/sewa" class="btn">batal</a></span>
         <p></p>
         <p></p>
       </div>

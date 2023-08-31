@@ -15,17 +15,26 @@
   {% endif %}
   <div class="grid">
     <div>
-      <div class="grid">
-        <label for="name">
-          <strong>Name</strong>
-          {{ form.name }}
+      <div class="row">
+        <div class="col-6">
+          <label for="pemesan">
+          <strong>Pemesan</strong>
+          {{ form.pemesan }}
           <small>Nama pemesan/pengguna</small>
         </label>
-        <label for="phone">
-          <strong>HP</strong>
-          {{ form.phone }}
-        </label>
-  
+        </div>
+        <div class="col-4">
+          <label for="kota">
+            <strong>Kota Tujuan/Jemput</strong>
+            {{ form.kota }}
+          </label>            
+        </div>
+        <div class="col-2">
+          <label for="num_hari">
+            <strong>Hari?</strong>
+            {{ form.num_hari }}
+          </label>            
+        </div>
       </div>
       <div class="grid">
         <label for="kendaraan">
@@ -54,13 +63,9 @@
         Alamat Jemput
         {{ form.jemput }}
       </label>
-      <label for="jemput">
-        Tujuan
-        {{ form.acara }}
-        <small>Nama tempat atau lokasi tujuan</small>
-      </label>
       <div class="grid">
         <input role="button" type="submit" value="Simpan">
+        <span><a href="/booking" class="btn">batal</a></span>
         <p></p>
         <p></p>
       </div>
