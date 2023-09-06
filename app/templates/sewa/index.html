@@ -1,31 +1,49 @@
 {% extends 'base.html' %}
 {% block content %}
-<hgroup>
-  <h1><i class="bi bi-clock"></i> Sewa</h1>
-  <p>Transaksi Sewa Mobil</p>
-</hgroup>
+<div class="grid">
+  <hgroup>
+    <h1><i class="bi bi-clock"></i> Sewa</h1>
+    <p>Transaksi Sewa Mobil</p>
+  </hgroup>
+  <div style="text-align:right;">
+    <h2><a href="/sewa?bln={{ prev }}"><i class="bi bi-arrow-left-square"></i></a><span style="margin: 0px 30px">{{ bulan.strftime('%b %Y') }}</span><a href="/sewa?bln={{ next }}"><i class="bi bi-arrow-right-square"></i></a></h2>
+  </div>  
+</div>
 <table>
   <thead>
     <tr>
-      <th>Pickup</th>
-      <th>Estimasi Kembali</th>
+      <th>Tanggal & Jam</th>
       <th>Mobil</th>
       <th>Driver</th>
+      <th>Paket</th>
+      <th>Kota</th>
       <th>Pemesan</th>
-      <th>Tujuan</th>
+      <th>Pembayaran</th>
       <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
     {% for s in sewas %}
     <tr>
-      <td>{{ s.berangkat }}</td>
-      <td>{{ s.est_tiba }}</td>
-      <td>{{ s.mobil.nopol }} {{ s.mobil.merk }} {{ s.mobil.model }}</td>
-      <td>{{ s.driver.name }} {{ s.driver.phone }}</td>
-      <td>{{ s.pemesan.name }}</td>
-      <td>{{ s.keterangan }}</td>
-      <td></td>
+      <td><a href="/sewa/{{ s.id }}">{{ s.waktu_jemput.strftime('%d %b %H:%M') }}</a></td>
+      <td>{{ s.mobil.nopol }} {{ s.mobil.model }}</td>
+      <td><a href="https://wa.me/{{ s.driver.phone }}?text=[WIRAAPP]%20Jemput%20{{ s.waktu_jemput.strftime('%d %b %H:%M') }}%20di%20{{ s.lokasi_jemput }}"><i class="bi bi-whatsapp"></i> {{ s.driver.name }}</a> </td>
+      <td>{{ s.jasa }}</td>
+      <td>{{ s.kota }}</td>
+      <td>{{ s.booking.pemesan.name }}</td>
+      <td>
+        <form method="POST" action="/kas/addin" style="z-index:2;position:fixed;background-color:rgba(255,255,255,0.9);padding:20px;border:solid 1px #ccc;">
+          {{ form.csrf_token}}
+          <input type="hidden" name="sewa" value="{{ s.id }}">
+          <input type="hidden" name="sumber" value="401 Sewa">
+          <input type="hidden" name="tujuan" value="111 Kas A">
+          <input type="hidden" name="keterangan" value="Sewa: {{ s.id }} {{ s.booking.pemesan.name }}({{ s.booking.pemesan.phone }}) waktu jemput {{ s.waktu_jemput }}">
+          Tanggal Terima <input type="date" name="tanggal"><br>
+          Nilai <input type="number" name="nilai"><br>
+          <input type="submit" value="Simpan">
+        </form>
+      </td>
+      <td><a href="/sewa/{{ s.id }}/kwitansi"><i class="bi bi-receipt"></i></a></td>
     </tr>
     {% endfor %}
   </tbody>

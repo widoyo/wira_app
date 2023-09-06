@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-emoji-sunglasses"></i> Tambah User</h1>
+  <p></p>
+</hgroup>
+<form action="/user/add" method="POST">
+  {{ form.csrf_token }}
+  {% if form.errors %}
+    <ul class="errors">
+    {% for error in form.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  <div class="grid">
+    <div>
+      <div class="grid">
+        <label for="username">
+          <strong>Username</strong>
+          {{ form.username }}
+          <small></small>
+        </label>
+        <label for="password">
+          <strong>Password</strong>
+          {{ form.password }}
+        </label>  
+        <label for="role">
+          <strong>Tugas</strong>
+          {{ form.role }}
+          <small></small>
+        </label>
+      </div>
+  </div>
+    <div>
+    </div>  
+  </div>
+
+  <div class="grid">
+    <input role="button" type="submit" value="Submit">
+    <p><a href="/user" class="btn">batal</a></p>
+    <p></p>
+    <p></p>
+  </div>
+
+</form>
+{% endblock %}

@@ -44,6 +44,6 @@ def show(id):
 
 @bp.route('')
 def index():
-    mobils = Mobil.select().order_by(Mobil.id.desc())
+    mobils = Mobil.select().order_by(Mobil.nopol.asc())
     return render_template('mobil/index.html', mobils=mobils)
 

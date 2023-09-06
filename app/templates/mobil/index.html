@@ -13,7 +13,7 @@
     <thead>
       <tr>
         <th>Nopol</th>
-        <th>Merk/Model</th>
+        <th>Merk - Model</th>
         <th>Pemilik</th>
       </tr>
     </thead>
@@ -21,7 +21,7 @@
       {% for m in mobils %}
       <tr>
         <td>{{ m.nopol }}</td>
-        <td>{{ m.merk }} {{ m.model }}</td>
+        <td>{{ m.merk }} - {{ m.model }}</td>
         <td>{% if m.vendor %}{{ m.vendor.name }}{% else %}Sendiri{% endif %}</td>
       </tr>
       {% endfor %}

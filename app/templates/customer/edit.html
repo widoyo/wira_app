@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 <hgroup>
-  <h1><i class="bi bi-bag-heart"></i> New Customer</h1>
+  <h1><i class="bi bi-bag-heart"></i> Edit Customer</h1>
   <small>Pengguna jasa Wiratama</small>  
 </hgroup>
 
-<form x-data="{name:'', placeholder:''}" action="/customer/add" method="POST">
+<form x-data="{name:'', placeholder:''}" action="/customer/{{ customer.id }}/edit" method="POST">
   {{ form.csrf_token }}
   {% if form.errors %}
     <ul class="errors">

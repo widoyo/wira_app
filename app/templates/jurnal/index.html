@@ -2,26 +2,31 @@
 {% block content %}
 <hgroup>
   <h1><i class="bi bi-shuffle"></i> Jurnal</h1>
-  <p>Alias Buku Besar</p>
+  <p></p>
 </hgroup>
-<table role="grid">
+<a href="/kas/addin" class="btn">+ Kas Masuk</a> <a href="/kas/addout" class="btn">+ Kas Keluar</a>
+<h2 style="text-align:center;">periode <br>{{ start.strftime('%d') }} - {{ end.strftime('%d') }}<br>
+ <a href="/jurnal?bln={{ prev }}"><i class="bi bi-arrow-left-square"></i></a> <span style="margin: 0px 30px;">{{ end.strftime('%b %Y')}}</span> <a href="/jurnal?bln={{ next }}"><i class="bi bi-arrow-right-square"></i></a></h2>
+<table role="grid" class="jurnal">
   <thead>
     <tr>
       <th>Tanggal</th>
-      <th>Kategori</th>
+      <th>Akun</th>
       <th>Keterangan</th>
-      <th>Nilai</th>
-      <th>Dibuat oleh</th>
+      <th>Debet</th>
+      <th>Kredit</th>
+      <th>&nbsp;</th>
     </tr>
   </thead>
   <tbody>
     {% for j in jurnals %}
     <tr>
-      <td>{{ j.tanggal }}</td>
-      <td>{{ j.kategori }}</td>
-      <td>{{ j,keterangan }}</td>
+      <td><h6>{{ j.tanggal.strftime('%d') }}</h6></td>
+      <td>{{ j.tujuan }}<br><span style="padding-left:20px;"><i>{{ j.sumber }}</i></span></td>
+      <td>{{ j.keterangan }}</td>
       <td>{{ j.nilai }}</td>
-      <td>{{ j.c_by }}</td>
+      <td><br>{{ j.nilai }}</td>
+      <td></td>
     </tr>
     {% endfor %}
   </tbody>

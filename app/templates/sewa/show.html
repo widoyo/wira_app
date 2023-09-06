@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-clock"></i> Sewa</h1>
+  <p><a href="/sewa" style="font-size:2rem;line-height: 0.2rem;"><i class="bi bi-arrow-left"></i></a></p>
+</hgroup>
+<div class="row">
+  <article style="word-spacing: 0.6rem;"><span style="font-size:36pt;font-weight:300;line-height:0.2rem;margin-right: 30px;">{{ sewa.id }}</span><b>Customer:</b>{{ sewa.booking.pemesan.name }} <a href="https://wa.me/{{ sewa.booking.pemesan.phone }}?text="><i class="bi bi-whatsapp"></i></a>
+    <b>Kendaraan dipesan:</b>{{ sewa.booking.kendaraan }} <b>Paket:</b>{{ sewa.jasa }} <b>Harga:</b>{{ sewa.harga }}
+    <b>Kota:</b>{{ sewa.kota }}
+  </article>
+</div>
+<div class="row">
+  <div class="col">Supir: {{ sewa.driver.name }}<br>
+    Mobil: {{ sewa.mobil.nopol }} {{ sewa.mobil.model }}<br>
+    Odometer Berangkat: {{ sewa.km_berangkat }}<br>
+    Odometer Kembali: {{ sewa.km_tiba }}<br>
+    Biaya
+    Bayaran Supir:
+  </div>
+  <div class="col">Pembayaran
+    {% for b in sewa.bayaransewa_set %}
+    <li>{{ b.tanggal }} {{ b.nilai }}</li>
+    {% endfor %}
+    <form action="/sewa/{{ sewa.id }}" method="POST">
+      {{ payform.csrf_token }}
+      {% if payform.errors %}
+        <ul class="errors">
+        {% for error in payform.errors %}
+            <li>{{ error }}</li>
+        {% endfor %}
+        </ul>
+      {% endif %}
+          {{ payform.tanggal }}
+      {{ payform.nilai }}
+      <input type="submit">
+    </form>
+  </div>
+</div>
+{% endblock %}

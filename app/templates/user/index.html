@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1>User</h1>
+  <p></p>
+</hgroup>
+<table role="grid">
+  <thead>
+    <tr>
+      <th>Username</th>
+      <th>Role</th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for u in users %}
+    <tr>
+      <td>{{ u.username }}</td>
+      <td>{{ u.role }}</td>
+      <td><a href="/user/{{ u.id }}/setpassword">Set Password</a></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

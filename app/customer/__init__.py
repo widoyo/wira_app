@@ -16,12 +16,26 @@ bp = Blueprint('customer', __name__, url_prefix='/customer')
 class CustomerForm(fw.FlaskForm):
     name = wt.StringField('Name')
     phone = wt.StringField('WhatsApp')
+    addr1 = wt.StringField('Addr1')
+    addr2 = wt.StringField('Addr2')
+    city = wt.StringField('Kota')
+
+@bp.route('/<id>/edit', methods=['POST', 'GET'])
+def edit(id):
+    cust = get_object_or_404(Customer, Customer.id==id)
+    form = CustomerForm(obj=cust)
+    if form.validate_on_submit():
+        form.populate_obj(cust)
+        cust.c_by = current_user.username
+        cust.save()
+        return redirect('/customer')
+    return render_template('customer/edit.html', form=form, customer=cust)
 
 @bp.route('/add', methods=['POST', 'GET'])
 def add():
     form = CustomerForm()
     if form.validate_on_submit():
-        new_cust = Customer(**form.data)
+        new_cust = Customer()
         new_cust.c_by = current_user.username
         new_cust.save()
         return redirect('/customer')
@@ -34,6 +48,6 @@ def show(id):
 
 @bp.route('')
 def index():
-    customers = Customer.select().order_by(Customer.id.desc())
+    customers = Customer.select().order_by(Customer.name.asc())
     return render_template('customer/index.html', customers=customers)
 

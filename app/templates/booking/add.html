@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
 <hgroup>
-  <h1>Add Booking</h1>
+  <h1><i class="bi bi-phone-vibrate"></i> Add Booking</h1>
   <p>Booking, pesan sewa</p>
 </hgroup>
 <form action="/booking/add" method="POST">
@@ -16,52 +16,62 @@
   <div class="grid">
     <div>
       <div class="row">
-        <div class="col-6">
+        <div class="col-7">
           <label for="pemesan">
           <strong>Pemesan</strong>
           {{ form.pemesan }}
-          <small>Nama pemesan/pengguna</small>
+          <small>Nama pemesan, <a href="/customer/add" class="bt">+ Tambah Customer</a></small>
         </label>
         </div>
-        <div class="col-4">
+        <div class="col-5">
           <label for="kota">
-            <strong>Kota Tujuan/Jemput</strong>
+            <strong>Kota</strong>
             {{ form.kota }}
+          </label>            
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-4">
+          <label for="jasa">
+            <strong>Jasa</strong>
+            {{ form.jasa }}
           </label>            
         </div>
         <div class="col-2">
           <label for="num_hari">
-            <strong>Hari?</strong>
+            <strong>Durasi?</strong>
             {{ form.num_hari }}
-          </label>            
-        </div>
+          </label>
+        </div> 
+        <div class="col-6">
+          <label for="kendaraan">
+            Kendaraan
+            {{ form.kendaraan }}
+          </label>
+          </div>
       </div>
       <div class="grid">
-        <label for="kendaraan">
-          Kendaraan
-          {{ form.kendaraan }}
-        </label>
         <label for="harga">
           Harga Total
           {{ form.harga }}
           <small>Harga setelah nego</small>
           </label>
-          <label for="kapan">
+          <label for="waktu_jemput">
         Waktu Jemput
-        {% if form.kapan.errors %}
+        {% if form.waktu_jemput.errors %}
         <ul class="errors">
-        {% for error in form.kapan.errors %}
+        {% for error in form.waktu_jemput.errors %}
             <li>{{ error }}</li>
         {% endfor %}
         </ul>
         {% endif %}
-    {{ form.kapan }}
+    {{ form.waktu_jemput }}
         <small>Tanggal dan Jam</small>
         </label>
         </div>
       <label for="jemput">
         Alamat Jemput
-        {{ form.jemput }}
+        {{ form.lokasi_jemput }}
       </label>
       <div class="grid">
         <input role="button" type="submit" value="Simpan">

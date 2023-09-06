@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block content %}
+<hgroup>
+  <h1><i class="bi bi-cash"></i>Kas Keluar</h1>
+  <p>Pengeluaran dana dari Kas/Bank</p>
+</hgroup>
+<form action="/kas/addout" method="POST">
+  {{ form.csrf_token }}
+  {% if form.errors %}
+    <ul class="errors">
+    {% for error in form.errors %}
+        <li>{{ error }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+  <div class="grid">
+    <div>
+      <div class="grid">
+        <label for="tanggal">
+          <strong>Tanggal</strong>
+          {{ form.tanggal }}
+          <small>Tanggal Transaksi</small>
+        </label>
+        <label x-data for="nilai">
+          <strong>Nilai</strong>
+          <input type="number" name="nilai" x-mask:dynamic="$money($input, ',', '.')" value="">
+          
+        </label>  
+      </div>
+      <div class="grid">
+        <label for="Sumber">
+          Sumber Dana
+          {{ form.sumber }}
+        </label>
+        <label for="tujuan">
+          Tujuan
+          {{ form.tujuan }}
+        </label>  
+      </div>
+      <label for="keterangan">
+        <strong>Keterangan</strong>
+        {{ form.keterangan }}
+      </label>  
+
+  </div>
+    <div>
+    </div>  
+  </div>
+
+  <div class="grid">
+    <input role="button" type="submit" value="Submit">
+    <p><a href="/driver" class="btn">batal</a></p>
+    <p></p>
+    <p></p>
+  </div>
+</form>
+{% endblock %}

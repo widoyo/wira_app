@@ -2,9 +2,9 @@
 {% block content %}
 <hgroup>
   <h1><i class="bi bi-clock"></i> Tambah Sewa</h1>
-  <p></p>
+  <p>ID Booking: <strong>{{ booking.id }}</strong></p>
 </hgroup>
-<form action="/sewa/add">
+<form action="/sewa/add/{{ booking.id }}" method="POST">
   {{ form.csrf_token }}
   {% if form.errors %}
     <ul class="errors">
@@ -13,52 +13,79 @@
     {% endfor %}
     </ul>
   {% endif %}
+  <div class="row" style="margin-bottom: 40px;">
+    <div class="col"><strong>Pesanan / Booking</strong>: <span style="border: solid 1px #ccc;border-radius: 10px;background-color:#eee;padding:12px;">{{ booking.pemesan.name }} / {{ booking.pemesan.phone }}, <strong>{{ booking.kota }}</strong>, selama {{ booking.num_hari }} hari, <strong>{{ booking.kendaraan}}</strong>, harga Rp {{ booking.harga }}.</span>
+    </div>
+  </div>
   <div class="grid">
     <div>
-      <div class="grid">
-        <label for="name">
-          <strong>Pemesan</strong>
-          {{ form.pemesan }}
-          <small>Nama pemesan/pengguna</small>
-        </label>
-        <label for="booking">
-          <strong>Booking</strong>
-          {{ form.booking }}
-        </label>
-  
-      </div>
-      <div class="grid">
-        <label for="lokasi_jemput">
-          Kendaraan
-          {{ form.mobil }}
-        </label>
-        <label for="harga">
-          Harga
-          {{ form.harga }}
-          <small>Harga sewa</small>
+      <div class="row">
+        <div class="col-8">
+          <label for="mobil">
+            Pilih Mobil
+            {{ form.mobil }}
           </label>
-          <label for="jemput">
-        Waktu Jemput
-        {% if form.jemput.errors %}
-        <ul class="errors">
-        {% for error in form.jemput.errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-    {{ form.jemput }}
-        <small>Tanggal dan Jam</small>
-        </label>
         </div>
-      <label for="jemput">
-        Alamat Jemput
-        {{ form.tujuan }}
-      </label>
-      <label for="jemput">
-        Tujuan
-        {{ form.acara }}
-        <small>Nama tempat atau lokasi tujuan</small>
-      </label>
+        <div class="col-4">
+          <label for="driver">
+            Supir
+            {{ form.driver }}
+          </label>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-3">
+          <label for="jasa">
+            Jasa
+            {{ form.jasa }}
+            <small>Jenis Jasa</small>
+            </label>
+        </div>
+        <div class="col-2">
+          <label for="num_hari">
+            Durasi
+            {{ form.num_hari }}
+            <small>Hari</small>
+            </label>
+        </div>
+          <div class="col-3">
+            <label for="harga">
+              Harga
+              {{ form.harga }}
+              <small>Besarnya tagihan</small>
+              </label>  
+          </div>
+          <div class="col-4">
+            <label for="waktu_jemput">
+              Waktu Jemput
+              {{ form.waktu_jemput }}
+              <small></small>
+              </label>  
+
+          </div>
+      <div class="row">
+        <div class="col-3">
+          <label for="kota">
+            di Kota
+            {{ form.kota }}
+          </label>
+        </div>
+        <div class="col-9">
+          <label for="lokasi_jemput">
+            Lokasi Jemput
+            {% if form.lokasi_jemput.errors %}
+            <ul class="errors">
+            {% for error in form.lokasi_jemput.errors %}
+                <li>{{ error }}</li>
+            {% endfor %}
+            </ul>
+            {% endif %}
+        {{ form.lokasi_jemput }}
+            <small>Lokasi jemput</small>
+            </label>
+            </div>    
+      </div>
+        </div>
       <div class="grid">
         <input role="button" type="submit" value="Simpan">
         <span><a href="/sewa" class="btn">batal</a></span>
@@ -66,6 +93,7 @@
         <p></p>
       </div>
 </div>
+<div></div>
 </div>
 </form>
 {% endblock %}

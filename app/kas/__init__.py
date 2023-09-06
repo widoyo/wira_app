@@ -6,7 +6,8 @@ from playhouse.flask_utils import get_object_or_404
 import flask_wtf as fw
 import wtforms as wt
 from wtforms.validators import DataRequired
-from app.models import Kas, KAS_BANK, KAT_BIAYA
+from flask_login import current_user
+from app.models import Jurnal, Kas, KAS_BANK, KAT_BIAYA, Sewa
 
 
 bp = Blueprint('kas', __name__, url_prefix='/kas')
@@ -22,20 +23,33 @@ class KasOutForm(fw.FlaskForm):
 
 class KasInForm(fw.FlaskForm):
     tanggal = wt.DateField('Tanggal')
-    sumber = wt.SelectField(choices='Sewa;Bunga Bank;Retur;Koreksi Saldo;')
+    sumber = wt.SelectField(choices='401 Sewa;402 Pendapatan Lain-lain;403 Koreksi Saldo;'.split(';'))
     tujuan = wt.SelectField(choices=KAS_BANK)
     nilai = wt.StringField('Nilai')
-    sewa = wt.SelectField('Sewa')
+    sewa = wt.SelectField('Sewa', choices=[(s.id, s.booking.pemesan.name) for s in Sewa.select()])
     keterangan = wt.StringField('Keterangan')
 
-@bp.route('/add', methods=['POST', 'GET'])
-def add():
-    form = KasForm()
+@bp.route('/addout', methods=['POST', 'GET'])
+def addout():
+    form = KasOutForm(tanggal=datetime.date.today())
     if form.validate_on_submit():
-        new_cust = Driver(**form.data)
-        new_cust.save()
+        new_kasout = Jurnal(**form.data)
+        new_kasout.c_by = current_user.username
+        new_kasout.is_masuk = False
+        new_kasout.save()
         return redirect('/kas')
-    return render_template('kas/add.html', form=form)
+    return render_template('kas/addout.html', form=form)
+
+@bp.route('/addin', methods=['POST', 'GET'])
+def addin():
+    form = KasInForm(tanggal=datetime.date.today())
+    if form.validate_on_submit():
+        new_kasin = Jurnal(**form.data)
+        new_kasin.c_by = current_user.username
+        new_kasin.is_masuk = True
+        new_kasin.save()
+        return redirect('/kas')
+    return render_template('kas/addin.html', form=form)
 
 @bp.route('/<id>')
 def show(id):
@@ -44,6 +58,7 @@ def show(id):
 
 @bp.route('')
 def index():
+    bulan = request.args.get('bl') or datetime.date.today()
     kass = Kas.select().order_by(Kas.id.desc())
     return render_template('kas/index.html', kass=kass)
 

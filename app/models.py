@@ -12,17 +12,42 @@ db_wrapper = FlaskDB()
 class BaseModel(db_wrapper.Model):
     pass
         
-KAS_BANK = 'Kas A;Kas B;Bank BCA;Bank OCBC'.split(';')
+KAS_BANK = '111 Kas A;112 Kas B;115 Bank BCA;116 Bank OCBC'.split(';')
+'''
+COA:
+  1 Aktiva
+  111 Kas A
+  112 Kas B
+  115 Bank BCA
+  116 Bank OCBC
+  2 Kewajiban
+  201 Utang Usaha
+  3 Ekuitas / Modal
+  301 Modal
+  302 Prive
+  4 Pendapatan
+  401 Hasil Sewa
+  402 Lain-lain
+  5 Biaya
+  501 Gaji
+  502 Honor
+  503 Bahan Bakar
+  504 Listrik
+  505 Iklan
+  506 Sopir
+  507 Vendor 
+'''
 KAT_BIAYA = [
-    'Iklan',
-    'Gaji',
-    'Bahan Bakar',
-    'Listrik',
-    'Komunikasi'
-    'Supir',
-    'Tol',
-    'Vendor'
+    '505 Iklan',
+    '501 Gaji',
+    '503 Bahan Bakar',
+    '504 Listrik',
+    '505 Komunikasi'
+    '506 Supir',
+    '508 Tol',
+    '507 Vendor'
 ]
+JASA_CHOICES = 'DropOff;6 jam;12 jam;24 jam'.split(';')
 
 class User(UserMixin, BaseModel):
     '''User Authentication'''
@@ -74,7 +99,7 @@ class Customer(BaseModel):
 class Jurnal(BaseModel):
     tanggal = pw.DateField()
     keterangan = pw.TextField()
-    asal = pw.CharField(max_length=35)
+    sumber = pw.CharField(max_length=35)
     tujuan = pw.CharField(max_length=35)
     nilai = pw.IntegerField()
     is_masuk = pw.BooleanField(default=True)
@@ -95,16 +120,15 @@ class Kas(BaseModel):
         
 
 class Booking(BaseModel):
-    name = pw.CharField(max_length=35)
-    phone = pw.CharField(max_length=35)
-    kapan = pw.DateTimeField()
-    num_hari = pw.IntegerField(default=1)
+    pemesan = pw.ForeignKeyField(Customer)
+    waktu_jemput = pw.DateTimeField()
     lokasi_jemput = pw.TextField(default='')
+    kota = pw.CharField(max_length=50, default='Solo')
+    num_hari = pw.IntegerField(default=1)
     kendaraan = pw.TextField('Reborn')
     harga = pw.IntegerField() # harga jadi / setelah nego
-    kota = pw.CharField(max_length=50, default='Solo')
-    acara = pw.TextField(null=True)
     status = pw.CharField(max_length=12, default='aktif')
+    jasa = pw.CharField(max_length=50, null=True)
     created = pw.DateTimeField(default=datetime.datetime.now)
     modified = pw.DateTimeField(null=True)
     c_by = pw.CharField(max_length=12)
@@ -137,21 +161,25 @@ class Mobil(BaseModel):
     m_by = pw.CharField(max_length=12, null=True)
     
 class Sewa(BaseModel):
-    pemesan = pw.ForeignKeyField(Customer)
-    jemput = pw.DateTimeField()
-    lokasi_jemput = pw.CharField(max_length=100)
-    est_tiba = pw.DateTimeField()
     booking = pw.ForeignKeyField(Booking, null=True)
+    waktu_jemput = pw.DateTimeField()
+    lokasi_jemput = pw.CharField(max_length=100)
+    kota = pw.CharField(max_length=50, null=True)
+    jasa = pw.CharField(max_length=50, null=True)
+    num_hari = pw.IntegerField(default=1)
+    est_tiba = pw.DateTimeField(null=True)
+    act_tiba = pw.DateTimeField(null=True)
     mobil = pw.ForeignKeyField(Mobil, null=True)
-    supir = pw.ForeignKeyField(Driver, null=True)
+    driver = pw.ForeignKeyField(Driver, null=True)
     harga = pw.IntegerField(null=True)
-    tujuan = pw.TextField(null=True)
     km_berangkat = pw.IntegerField(null=True)
     km_tiba = pw.IntegerField(null=True)
     bea_supir = pw.IntegerField(null=True)
     bea_tol = pw.IntegerField(null=True)
     bea_bensin = pw.IntegerField(null=True)
     bea_lain = pw.IntegerField(null=True)
+    acara = pw.TextField(null=True)
+    upgrade = pw.BooleanField(default=False)
     keterangan = pw.TextField(null=True)
     upgrade = pw.BooleanField(default=False)
     created = pw.DateTimeField(default=datetime.datetime.now)
@@ -160,3 +188,13 @@ class Sewa(BaseModel):
     m_by = pw.CharField(max_length=12, null=True)
 
 
+class BayaranSewa(BaseModel):
+    sewa = pw.ForeignKeyField(Sewa)
+    tanggal = pw.DateField()
+    nilai = pw.IntegerField(default=0)
+    is_journaled = pw.BooleanField(default=False)
+    created = pw.DateTimeField(default=datetime.datetime.now)
+    modified = pw.DateTimeField(null=True)
+    c_by = pw.CharField(max_length=12)
+    m_by = pw.CharField(max_length=12, null=True)
+    
