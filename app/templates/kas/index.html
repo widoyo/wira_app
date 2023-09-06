@@ -2,16 +2,25 @@
 {% block content %}
 <hgroup>
   <h1><i class="bi bi-arrow-left-right"></i> Aliran Kas</h1>
-  <p>Aliran Kas</p>
+  <p>Periode </p>
 </hgroup>
-<table role="grid">
-  <thead>
-    <tr>
-      <th>Tanggal</th>
-      <th>Kategori</th>
-      <th>Keterangan</th>
-      <th>Nilai</th>
-    </tr>
-  </thead>
-</table>
+<div class="row">
+  <div class="col">
+    <h2>In - Out</h2>
+    <table role="grid">
+      <thead>
+        <tr>
+          <th>Tanggal</th>
+          <th>Kategori</th>
+          <th>Keterangan</th>
+          <th>Debet</th>
+          <th>Kredit</th>
+        </tr>
+      </thead>
+    </table>
+      </div>
+  <div class="col">
+    <h2>Saldo Kas</h2>
+  </div>
+</div>
 {% endblock %}
