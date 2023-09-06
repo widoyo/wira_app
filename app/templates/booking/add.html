@@ -50,24 +50,28 @@
           </label>
           </div>
       </div>
-      <div class="grid">
-        <label for="harga">
-          Harga Total
-          {{ form.harga }}
-          <small>Harga setelah nego</small>
-          </label>
-          <label for="waktu_jemput">
-        Waktu Jemput
-        {% if form.waktu_jemput.errors %}
-        <ul class="errors">
-        {% for error in form.waktu_jemput.errors %}
-            <li>{{ error }}</li>
-        {% endfor %}
-        </ul>
-        {% endif %}
-    {{ form.waktu_jemput }}
-        <small>Tanggal dan Jam</small>
-        </label>
+      <div class="row">
+        <div class="col">
+          <label for="harga">
+            Harga Total
+            {{ form.harga }}
+            <small>Harga setelah nego</small>
+            </label>
+          </div>
+          <div class="col">
+            <label for="waktu_jemput">
+              Waktu Jemput
+              {% if form.waktu_jemput.errors %}
+              <ul class="errors">
+              {% for error in form.waktu_jemput.errors %}
+                  <li>{{ error }}</li>
+              {% endfor %}
+              </ul>
+              {% endif %}
+          {{ form.waktu_jemput }}
+              <small>Tanggal dan Jam</small>
+              </label>
+          </div>
         </div>
       <label for="jemput">
         Alamat Jemput

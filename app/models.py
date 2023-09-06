@@ -186,6 +186,10 @@ class Sewa(BaseModel):
     modified = pw.DateTimeField(null=True)
     c_by = pw.CharField(max_length=12)
     m_by = pw.CharField(max_length=12, null=True)
+    
+    @property
+    def is_lunas(self):
+        return sum([b.nilai for b in self.bayaransewa_set]) == self.harga
 
 
 class BayaranSewa(BaseModel):
