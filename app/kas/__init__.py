@@ -26,7 +26,7 @@ class KasInForm(fw.FlaskForm):
     sumber = wt.SelectField(choices='401 Sewa;402 Pendapatan Lain-lain;403 Koreksi Saldo;'.split(';'))
     tujuan = wt.SelectField(choices=KAS_BANK)
     nilai = wt.StringField('Nilai')
-    sewa = wt.SelectField('Sewa', choices=[(s.id, s.booking.pemesan.name) for s in Sewa.select()])
+    #sewa = wt.SelectField('Sewa', choices=[(s.id, s.booking.pemesan.name) for s in Sewa.select()])
     keterangan = wt.StringField('Keterangan')
 
 @bp.route('/addout', methods=['POST', 'GET'])
