@@ -58,7 +58,15 @@ def show(id):
 
 @bp.route('')
 def index():
-    bulan = request.args.get('bl') or datetime.date.today()
-    kass = Kas.select().order_by(Kas.id.desc())
-    return render_template('kas/index.html', kass=kass)
+    bulan = request.args.get('bln') and datetime.datetime.strptime(request.args.get('bln'), '%Y-%m') or datetime.date.today()
+    start = bulan.replace(day=1)
+    if bulan.month == datetime.date.today().month:
+        end = datetime.date.today()
+    else:
+        end = (bulan.replace(day=1) + datetime.timedelta(days=32)).replace(day=1) - datetime.timedelta(days=1)
+    jurnals = Jurnal.select().where(Jurnal.tanggal.between(start, end)).order_by(Jurnal.id.desc())
+    prev = (start - datetime.timedelta(days=1)).strftime('%Y-%m')
+    next = (start + datetime.timedelta(days=32)).strftime('%Y-%m')
+    
+    return render_template('kas/index.html', kass=jurnals, start=start, end=end, prev=prev, next=next)
 

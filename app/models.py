@@ -42,7 +42,7 @@ KAT_BIAYA = [
     '501 Gaji',
     '503 Bahan Bakar',
     '504 Listrik',
-    '505 Komunikasi'
+    '505 Komunikasi',
     '506 Supir',
     '508 Tol',
     '507 Vendor'
@@ -78,7 +78,7 @@ class Driver(BaseModel):
     
 
 class Customer(BaseModel):
-    '''Custimer who ship goods'''
+    '''Customer'''
     name = pw.CharField(max_length=35, unique=True)
     phone = pw.CharField(max_length=35, null=True)
     addr1 = pw.TextField(null=True)

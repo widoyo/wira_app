@@ -2,8 +2,8 @@
 {% block content %}
 <hgroup>
   <h1><i class="bi bi-arrow-left-right"></i> Aliran Kas</h1>
-  <p>Periode </p>
-</hgroup>
+  <h2 style="text-align:center;">periode <br>{{ start.strftime('%d') }} - {{ end.strftime('%d') }}<br>
+    <a href="/kas?bln={{ prev }}"><i class="bi bi-arrow-left-square"></i></a> <span style="margin: 0px 30px;">{{ end.strftime('%b %Y')}}</span> <a href="/kas?bln={{ next }}"><i class="bi bi-arrow-right-square"></i></a></h2></hgroup>
 <div class="row">
   <div class="col">
     <h2>In - Out</h2>
@@ -17,6 +17,29 @@
           <th>Kredit</th>
         </tr>
       </thead>
+      <tbody>
+        {% for k in kass %}
+        <tr>
+          <td>{{ k.tanggal.strftime('%d') }}</td>
+          {% if k.is_masuk %}
+          <td>{{ k.sumber }}</i></span></td>
+          <td>{{ k.keterangan }}</td>
+          <td class="debet" style="text-align: right;font-weight:bold;">-</td>
+          <td class="kredit" style="text-align: right;font-weight:bold;">{{ k.nilai }}</td>
+          {% else %}
+          <td>{{ k.tujuan }}</td>
+          <td>{{ k.keterangan }}</td>
+          <td class="debet" style="text-align: right;font-weight:bold;">{{ k.nilai }}</td>
+          <td class="kredit" style="text-align: right;font-weight:bold;">-</td>
+          {% endif %}
+        </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="3" style="text-align: right;font-weight: bold;">Jumlah</td>
+          <td id="jl_debet" style="text-align: right;font-weight:bold;"></td>
+          <td id="jl_kredit" style="text-align: right;font-weight:bold;"></td>
+        </tr>
+      </tbody>
     </table>
       </div>
   <div class="col">
