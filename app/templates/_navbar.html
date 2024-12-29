@@ -1,0 +1,142 @@
+<nav
+  class="navbar fixed-top navbar-expand-lg navbar-light bg-light border-bottom"
+  style="box-shadow: 0px 6px 15px -5px #888"
+>
+  <div class="container">
+    <a class="navbar-brand text-secondary" href="/">Wiratama Rental</a>
+
+    <button
+      class="navbar-toggler collapsed d-flex d-lg-none flex-column justify-content-around"
+      type="button"
+      data-bs-toggle="collapse"
+      data-bs-target="#navbarText"
+      aria-controls="navbarText"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <span class="toggler-icon top-bar"></span>
+      <span class="toggler-icon middle-bar"></span>
+      <span class="toggler-icon bottom-bar"></span>
+    </button>
+    <div class="navbar-collapse collapse" id="navbarText">
+      <ul class="navbar-nav mx-auto mb-2 mb-lg-0">
+        <li class="nav-item px-2">
+          <a class="nav-link" aria-current="page" href="/"
+            ><i class="bi bi-house me-1"></i> Home</a
+          >
+        </li>
+        <li class="nav-item dropdown px-2">
+          <a
+            class="nav-link dropdown-toggle"
+            role="button"
+            id="dropdownRtdMenuLink"
+            href="#"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            ><i class="bi bi-geo-alt me-1"></i> Persewaan</a
+          >
+          <ul class="dropdown-menu" araia-labelledby="dropdownRtdMenuLink">
+            <li>
+              <a class="dropdown-item navlink" href="/booking"
+                ><i class="bi bi-cloud-rain me-2 text-danger"></i> Pesanan</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item navlink" href="/sewa"
+                ><i class="bi bi-water me-2 text-danger"></i> Sewa</a
+              >
+            </li>
+            <li>
+                <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a class="dropdown-item navlink" href="/mobil"
+                ><i class="bi bi-thermometer-half me-2 text-danger"></i>
+                Kendaraan</a
+              >
+            </li>
+            <li>
+                <a class="dropdown-item navlink" href="/vendor"
+                  ><i class="bi bi-thermometer-half me-2 text-danger"></i>
+                  Partner Kendaraan</a
+                >
+              </li>
+            <li>
+            <a class="dropdown-item navlink" href="/driver"
+                ><i class="bi bi-thermometer-half me-2 text-danger"></i>
+                Supir</a
+            >
+            </li>
+            <li>
+            <a class="dropdown-item navlink" href="/mobil"
+                ><i class="bi bi-thermometer-half me-2 text-danger"></i>
+                Kendaraan</a
+            >
+            </li>
+        </ul>
+        </li>
+        {% if current_user.role == '9' %}
+        <li class="nav-item dropdown px-2">
+          <a
+            class="nav-link dropdown-toggle"
+            role="button"
+            href="#"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            ><i class="bi bi-sliders2-vertical me-1"></i> Keuangan</a
+          >
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item navlink" href="/kas"
+                ><i class="bi bi-geo-alt me-2 text-danger"></i> Aliran Kas</a
+              >
+            </li>
+            <li>
+              <a class="dropdown-item navlink" href="/jurnal"
+                ><i class="bi bi-map me-2 text-danger"></i> Jurnal</a
+              >
+            </li>
+          </ul>
+        </li>
+        {% endif %}
+      </ul>
+      <ul class="navbar-nav">
+        {% if current_user.is_authenticated %}
+        <li class="nav-item px-2 dropdown">
+          <a
+            href="#"
+            class="nav-link dropdown-toggle"
+            role="button"
+            id="dropdownMenuLink"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+            ><i
+              class="bi bi-person-fill {% if current_user.is_admin %}text-danger {% endif %}me-1"
+            ></i>
+            {{ current_user.username }}</a
+          >
+          <ul
+            class="dropdown-menu dropdown-menu-end"
+            aria-labelledby="dropdownMenuLink"
+          >
+            <li>
+              <hr class="dropdown-divider" />
+            </li>
+            <li>
+              <a href="/logout" class="dropdown-item navlink"
+                ><i class="bi bi-power text-danger me-2"></i> Logout</a
+              >
+            </li>
+          </ul>
+        </li>
+        {% else %}
+        <li class="nav-item px-2">
+          <a class="nav-link" href="/login"
+            ><i class="bi bi-power text-danger me-1"></i> Login</a
+          >
+        </li>
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+</nav>

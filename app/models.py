@@ -38,14 +38,16 @@ COA:
   507 Vendor 
 '''
 KAT_BIAYA = [
-    '505 Iklan',
     '501 Gaji',
+    '502 Makan & Parkir',
     '503 Bahan Bakar',
     '504 Listrik',
     '505 Komunikasi',
     '506 Supir',
+    '507 Mitra',
     '508 Tol',
-    '507 Vendor'
+    '509 Air, Tisu, Cuci Mobil',
+    '510 Penginapan',
 ]
 JASA_CHOICES = 'DropOff;6 jam;12 jam;24 jam'.split(';')
 

@@ -1,9 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
-<hgroup>
-  <h1><i class="bi bi-cash"></i>Kas Keluar</h1>
-  <p>Pengeluaran dana dari Kas/Bank</p>
-</hgroup>
+<div class="row">
+  <div class="col">
+    <h2><i class="bi bi-cash me-3"></i>Kas Keluar</h2>
+    <p class="text-secondary">Pengeluaran dana dari Kas atau Bank</p>  
+  </div>
+</div>
+
 <form action="/kas/addout" method="POST">
   {{ form.csrf_token }}
   {% if form.errors %}
@@ -15,43 +18,54 @@
   {% endif %}
   <div class="grid">
     <div>
-      <div class="grid">
-        <label for="tanggal">
-          <strong>Tanggal</strong>
-          {{ form.tanggal }}
-          <small>Tanggal Transaksi</small>
-        </label>
-        <label x-data for="nilai">
-          <strong>Nilai</strong>
-          <input type="number" name="nilai" x-mask:dynamic="$money($input, ',', '.')" value="">
-          
-        </label>  
+      <div class="row mb-4">
+        <div class="col">
+          <label for="tanggal">
+            Tanggal Transaksi
+            {{ form.tanggal(class_="form-control") }}
+          </label>
+        </div>
       </div>
-      <div class="grid">
-        <label for="Sumber">
-          Sumber Dana
-          {{ form.sumber }}
-        </label>
-        <label for="tujuan">
-          Tujuan
-          {{ form.tujuan }}
-        </label>  
+      <div class="row mb-4">
+        <div class="col">
+          <label for="keterangan">
+            Keterangan
+            {{ form.keterangan(class_="form-control", size="45") }}
+          </label>
+        </div>
       </div>
-      <label for="keterangan">
-        <strong>Keterangan</strong>
-        {{ form.keterangan }}
-      </label>  
-
+      <div class="row mb-4">
+        <div class="col">
+          <label x-data for="nilai">
+            Nilai Keluar
+            <input type="text" class="form-control text-end" name="nilai"  x-number="|.|,|" placeholder="100.000">
+          </label>  
+        </div>
+      </div>
+      <div class="row mb-4">
+        <div class="col">
+          <label for="akun">
+            Kategori
+            {{ form.tujuan(class_="form-select") }}
+          </label>
+        </div>
+        <div class="col">
+          <label for="Sumber">
+            Sumber Dana
+            {{ form.sumber(class_="form-select") }}
+          </label>
+        </div>
+      </div>
   </div>
     <div>
     </div>  
   </div>
 
-  <div class="grid">
-    <input role="button" type="submit" value="Submit">
-    <p><a href="/kas" class="btn">batal</a></p>
-    <p></p>
-    <p></p>
+  <div class="row">
+    <div class="col">
+      <input class="btn btn-primary" role="button" type="submit" value="Simpan">
+      <a href="/kas" class="btn">batal</a>
+    </div>
   </div>
 </form>
 {% endblock %}

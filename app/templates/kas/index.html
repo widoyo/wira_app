@@ -1,49 +1,101 @@
 {% extends 'base.html' %}
 {% block content %}
-<hgroup>
-  <h1><i class="bi bi-arrow-left-right"></i> Aliran Kas</h1>
-  <h2 style="text-align:center;">periode <br>{{ start.strftime('%d') }} - {{ end.strftime('%d') }}<br>
-    <a href="/kas?bln={{ prev }}"><i class="bi bi-arrow-left-square"></i></a> <span style="margin: 0px 30px;">{{ end.strftime('%b %Y')}}</span> <a href="/kas?bln={{ next }}"><i class="bi bi-arrow-right-square"></i></a></h2></hgroup>
+  <h2><i class="bi bi-arrow-left-right me-2"></i> Aliran Kas</h2>
+  <p class="text-center text-secondary mb-0" style="letter-spacing: 2px;font-weight:300;">periode</p>
+  <h5 style="text-align:center;">{{ start.strftime('%d') }} - {{ end.strftime('%d') }}<br>
+    <a class="btn btn-outline-primary btn-sm" href="/kas?bln={{ prev }}"> <i class="bi bi-chevron-left"></i> </a> <span class="mx-3">{{ end.strftime('%b %Y')}}</span> <a class="btn btn-sm btn-outline-primary" href="/kas?bln={{ next }}"><i class="bi bi-chevron-right"></i></a></h5>
 <div class="row">
   <div class="col">
-    <h2>In - Out</h2>
-    <table role="grid">
-      <thead>
-        <tr>
-          <th>Tanggal</th>
-          <th>Kategori</th>
-          <th>Keterangan</th>
-          <th>Debet</th>
-          <th>Kredit</th>
-        </tr>
-      </thead>
-      <tbody>
-        {% for k in kass %}
-        <tr>
-          <td>{{ k.tanggal.strftime('%d') }}</td>
-          {% if k.is_masuk %}
-          <td>{{ k.sumber }}</i></span></td>
-          <td>{{ k.keterangan }}</td>
-          <td class="debet" style="text-align: right;font-weight:bold;">-</td>
-          <td class="kredit" style="text-align: right;font-weight:bold;">{{ k.nilai }}</td>
-          {% else %}
-          <td>{{ k.tujuan }}</td>
-          <td>{{ k.keterangan }}</td>
-          <td class="debet" style="text-align: right;font-weight:bold;">{{ k.nilai }}</td>
-          <td class="kredit" style="text-align: right;font-weight:bold;">-</td>
-          {% endif %}
-        </tr>
-        {% endfor %}
-        <tr>
-          <td colspan="3" style="text-align: right;font-weight: bold;">Jumlah</td>
-          <td id="jl_debet" style="text-align: right;font-weight:bold;"></td>
-          <td id="jl_kredit" style="text-align: right;font-weight:bold;"></td>
-        </tr>
-      </tbody>
-    </table>
-      </div>
-  <div class="col">
-    <h2>Saldo Kas</h2>
+    <div class="table-responsive mt-5">
+      <a class="btn btn-sm btn-outline-primary" href="/kas/addin"><i class="bi bi-plus-circle"></i> Penerimaan</a> <a class="btn btn-sm btn-outline-primary ms-2" href="/kas/addout"><i class="bi bi-plus-circle"></i> Pengeluaran</a>
+      <table x-data="kas" class="table table-bordered table-striped mt-3">
+        <thead>
+          <tr>
+            <th>Tgl</th>
+            <th>Kategori</th>
+            <th>Keterangan</th>
+            <th>Debet</th>
+            <th>Kredit</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for k in kass %}
+          <tr>
+            <td>{{ k.tanggal.strftime('%d') }}</td>
+            {% if not k.is_masuk %}
+            <td>{{ k.tujuan }}</i></span></td>
+            <td>{{ k.keterangan }}</td>
+            <td class="debet" style="text-align: right;"></td>
+            <td class="kredit" style="text-align: right;">{{ k.nilai }}</td>
+            {% else %}
+            <td>{{ k.sumber }}</td>
+            <td>{{ k.keterangan }}</td>
+            <td class="debet text-success" style="text-align: right;">{{ k.nilai }}</td>
+            <td class="kredit" style="text-align: right;"></td>
+            {% endif %}
+            <td><i class="bi bi-trash"></i></td>
+          </tr>
+          {% endfor %}
+          <tr>
+            <td colspan="3" style="text-align: right;">Jumlah</td>
+            <td id="jl_debet" style="text-align: right;font-weight:bold;"></td>
+            <td id="jl_kredit" style="text-align: right;font-weight:bold;"></td>
+            <td></td>
+          </tr>
+          <tr>
+            <td colspan="3" style="text-align: right;">Debet - Kredit =</td>
+            <td colspan="2" id="jl_saldo" style="text-align: right;font-weight:bold;"></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+      <div></div>
+    </div>
+
   </div>
 </div>
+{% endblock %}
+{% block extra_foot %}
+<script>
+    document.addEventListener('alpine:init', () => {
+      Alpine.data('kas', () => ({
+        init() {
+          this.jl_debet = 0
+          this.jl_kredit = 0
+          this.debet = document.querySelectorAll('.debet')
+          this.kredit = document.querySelectorAll('.kredit')
+          this.debet.forEach((d) => {
+            if (! isNaN(parseInt(d.innerText)))
+              this.jl_debet += parseInt(d.innerText)
+          })
+          this.kredit.forEach((k) => {
+            if (! isNaN(parseInt(k.innerText)))
+              this.jl_kredit += parseInt(k.innerText)
+          })
+          this.jl_saldo = this.jl_debet - this.jl_kredit;
+          document.getElementById('jl_debet').innerText = this.jl_debet.toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            maximumFractionDigits:0
+          })
+          document.getElementById('jl_kredit').innerText = this.jl_kredit.toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            maximumFractionDigits:0
+          })
+          document.getElementById('jl_saldo').style.color = '#090'
+          if (this.jl_saldo < 0) {
+            document.getElementById('jl_saldo').style.color = 'red'
+          }
+          document.getElementById('jl_saldo').innerText = this.jl_saldo.toLocaleString('id-ID', {
+            style: 'currency',
+            currency: 'IDR',
+            maximumFractionDigits:0
+          })  
+        }
+      }))
+    })
+
+</script>
 {% endblock %}

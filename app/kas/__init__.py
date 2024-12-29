@@ -33,6 +33,7 @@ class KasInForm(fw.FlaskForm):
 def addout():
     form = KasOutForm(tanggal=datetime.date.today())
     if form.validate_on_submit():
+        form.nilai.data = form.nilai.data.replace('.', '')
         new_kasout = Jurnal(**form.data)
         new_kasout.c_by = current_user.username
         new_kasout.is_masuk = False
@@ -44,6 +45,7 @@ def addout():
 def addin():
     form = KasInForm(tanggal=datetime.date.today())
     if form.validate_on_submit():
+        form.nilai.data = form.nilai.data.replace('.', '')
         new_kasin = Jurnal(**form.data)
         new_kasin.c_by = current_user.username
         new_kasin.is_masuk = True

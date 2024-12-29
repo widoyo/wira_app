@@ -1,9 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
-<hgroup>
-  <h1><i class="bi bi-cash"></i>Kas Masuk</h1>
-  <p>Penerimaan dana</p>
-</hgroup>
+  <h2><i class="bi bi-cash me-3"></i>Kas Masuk</h2>
+  <p class="text-secondary">Penerimaan dana</p>
 <form action="/kas/addin" method="POST">
   {{ form.csrf_token }}
   {% if form.errors %}
@@ -13,38 +11,44 @@
     {% endfor %}
     </ul>
   {% endif %}
-  <div class="grid">
-    <div>
-      <div class="grid">
-        <label for="tanggal">
-          <strong>Tanggal</strong>
-          {{ form.tanggal }}
-          <small>Tanggal Transaksi</small>
-        </label>
-        <label x-data for="nilai">
-          <strong>Nilai</strong>
-          <input type="number" name="nilai" x-mask:dynamic="$money($input, ',', '.')" value="">
-          
-        </label>  
-      </div>
-      <div class="grid">
-        <label for="Sumber">
-          Sumber Dana
-          {{ form.sumber }}
-        </label>
-        <label for="tujuan">
-          Tujuan
-          {{ form.tujuan }}
-        </label>  
-      </div>
-      <label for="keterangan">
-        <strong>Keterangan</strong>
-        {{ form.keterangan }}
-      </label>  
-
+  <div class="row mb-4">
+    <div class="col">
+      <label for="tanggal">
+        Tanggal Transaksi
+        {{ form.tanggal(class_="form-control") }}
+      </label>
+    </div>
   </div>
-    <div>
-    </div>  
+  <div class="row mb-4">
+    <div class="col">
+      <label for="keterangan">
+        Keterangan
+        {{ form.keterangan(class_="form-control", size="45") }}
+      </label> 
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col">
+      <label x-data for="nilai">
+          <strong>Nilai</strong>
+          <input type="text" class="form-control text-end" name="nilai" x-number="|.|,|" placeholder="120.000">
+      </label>  
+    </div>
+  </div>
+  <div class="row mb-4">
+    <div class="col">
+      <label for="Sumber">
+        Sumber Dana
+        {{ form.sumber(class_="form-select") }}
+      </label>
+    </div>
+    <div class="col">
+      <label for="tujuan">
+        Tujuan
+        {{ form.tujuan(class_="form-select") }}
+      </label>  
+    </div>
+  </div>
   </div>
 
   <div class="grid">
